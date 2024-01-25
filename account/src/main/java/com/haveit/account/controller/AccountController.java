@@ -1,6 +1,8 @@
 package com.haveit.account.controller;
 
+import com.haveit.account.dto.request.LoginRequestDto;
 import com.haveit.account.dto.request.SignupRequestDto;
+import com.haveit.account.dto.response.LoginResponseDto;
 import com.haveit.account.dto.response.SignupResponseDto;
 import com.haveit.account.entity.Account;
 import com.haveit.account.service.AccountService;
@@ -23,8 +25,14 @@ public class AccountController {
     //일반회원가입
     public ResponseEntity<SignupResponseDto> signup(@RequestBody SignupRequestDto signupRequestDto){
         Account account = accountService.signup(signupRequestDto);
-        SignupResponseDto signupResponse = new SignupResponseDto(account.getMemberId(),"회원가입 성공");
-        return ResponseEntity.ok(signupResponse);
+        SignupResponseDto response = new SignupResponseDto(account.getMemberId(),"회원가입 성공");
+        return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/login")
+    //일반회원가입
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto){
+        LoginResponseDto response = accountService.login(loginRequestDto);
+        return ResponseEntity.ok(response);
+    }
 }
