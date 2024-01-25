@@ -2,7 +2,6 @@ package com.haveit.account.service;
 
 import com.haveit.account.dto.request.LoginRequestDto;
 import com.haveit.account.dto.request.SignupRequestDto;
-import com.haveit.account.dto.response.LoginResponseDto;
 import com.haveit.account.dto.response.TokenResponseDto;
 import com.haveit.account.entity.Account;
 import com.haveit.account.enums.AccountType;
@@ -55,6 +54,11 @@ public class AccountService {
         return optionalAccount.get();
     }
 
-    
+    public TokenResponseDto login(LoginRequestDto loginRequestDto){
+        //회원이 존재하는지 확인
+        Account account = findMember(loginRequestDto.getEmail());
+        return createToken(account);
+    }
 
+    
 }
