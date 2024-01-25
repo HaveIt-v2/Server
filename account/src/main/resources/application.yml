@@ -19,6 +19,11 @@ spring:
         format_sql: true
         show_sql: true
 
+  
+
 jasypt:
   encryptor:
     password: ${PASSWORD}
+
+jwt:
+  secret: ENC(pzRSdDWV2Qf9bIi0tsUR2LXp37mBf55PsI8vLog+qLaMpIJqNbXO+HhYfamZrhlTlBqMLREgpuw=)

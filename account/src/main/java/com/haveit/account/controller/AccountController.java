@@ -2,8 +2,8 @@ package com.haveit.account.controller;
 
 import com.haveit.account.dto.request.LoginRequestDto;
 import com.haveit.account.dto.request.SignupRequestDto;
-import com.haveit.account.dto.response.LoginResponseDto;
 import com.haveit.account.dto.response.SignupResponseDto;
+import com.haveit.account.dto.response.TokenResponseDto;
 import com.haveit.account.entity.Account;
 import com.haveit.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +31,8 @@ public class AccountController {
 
     @PostMapping("/login")
     //일반회원가입
-    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto){
-        LoginResponseDto response = accountService.login(loginRequestDto);
+    public ResponseEntity<TokenResponseDto> login(@RequestBody LoginRequestDto loginRequestDto){
+        TokenResponseDto response = accountService.login(loginRequestDto);
         return ResponseEntity.ok(response);
     }
 }

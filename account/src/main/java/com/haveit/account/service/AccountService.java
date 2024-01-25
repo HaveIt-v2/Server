@@ -6,9 +6,11 @@ import com.haveit.account.dto.response.TokenResponseDto;
 import com.haveit.account.entity.Account;
 import com.haveit.account.enums.AccountType;
 import com.haveit.account.enums.MemberState;
+import com.haveit.account.global.jwt.JwtTokenProvider;
 import com.haveit.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 public class AccountService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AccountRepository accountRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final StringRedisTemplate stringRedisTemplate;
     public Account signup(SignupRequestDto signupRequestDto){
         //이미 존재할 경우 예외 처리
 
@@ -60,5 +64,10 @@ public class AccountService {
         return createToken(account);
     }
 
-    
+    public TokenResponseDto createToken(Account account){
+        TokenResponseDto response = jwtTokenProvider.generateToken(account);
+        stringRedisTemplate.opsForValue()
+                .set("RT:" + response.getAccessToken(), response.getRefreshToken(), response.getRefreshTokenExpirationTime(), TimeUnit.MILLISECONDS);
+        return response;
+    }
 }
