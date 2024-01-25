@@ -19,7 +19,10 @@ spring:
         format_sql: true
         show_sql: true
 
-  
+  redis:
+    host: ENC(G6L03YghvQxiq9YSUngL51alhdDqZcJI)
+    port: 6379
+
 
 jasypt:
   encryptor:
